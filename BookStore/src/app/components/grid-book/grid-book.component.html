@@ -1,0 +1,19 @@
+<a href="#" id="new-button">Add New</a>
+<table>
+  <thead>
+    <tr>
+      <th>Название</th>
+      <th>Автор</th>
+      <th>Цена за шт.</th>
+      <th>Тип книги</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let bookInfo of booksData">
+      <td>{{ bookInfo.name }}</td>
+      <td>{{ bookInfo.author }}</td>
+      <td>{{ bookInfo.price }}</td>
+      <td>{{ bookInfo.type }}</td>
+    </tr>
+  </tbody>
+</table>

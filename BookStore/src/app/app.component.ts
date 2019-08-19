@@ -1,19 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { Http } from '@angular/http';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'book-store-app';
-  constructor(private _httpService: Http) { }
-
-  apiValues: string[] = [];
-  ngOnInit() {
-    this._httpService.get('/api/values').subscribe(values => {
-      this.apiValues = values.json() as string[];
-    });
-  }
 }

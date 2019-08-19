@@ -1,0 +1,8 @@
+<div class="row">
+  <div class="col-md-4">
+    <app-add-or-update-book (bookCreated)="createOrUpdateBook($event)" [bookInfo]="currentBook"></app-add-or-update-book>
+  </div>
+  <div class="col-md-8">
+    <app-grid-book [booksData]="booksData" (editClick)="editClick($event)" (newClick)="newClick()" (itemDelete)="deleteClick($event)"></app-grid-book>
+  </div>
+</div>
