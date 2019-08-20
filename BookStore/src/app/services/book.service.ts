@@ -6,9 +6,10 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 })
 export class BookService {
   private headers: HttpHeaders;
-  private accessPointUrl: string = '';
+  private accessPointUrl: string = 'http://localhost:5000/api/books';
   constructor(private http: HttpClient) {
     this.headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
+    console.debug({ headers: this.headers, url: this.accessPointUrl });
   }
 
   public get() {

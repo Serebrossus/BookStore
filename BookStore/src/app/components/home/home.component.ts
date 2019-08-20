@@ -12,8 +12,10 @@ export class HomeComponent implements OnInit {
   public currentBook: any;
 
   constructor(private bookService: BookService) {
+    console.log('HomeComponent');
     bookService.get().subscribe((data: any) => this.booksData = data);
     this.currentBook = this.setInitialValuesForBookData();
+    console.debug({ booksData: this.booksData });
   }
 
   private setInitialValuesForBookData = function () {

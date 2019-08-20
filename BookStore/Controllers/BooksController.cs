@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,7 +10,7 @@ using BookStoreApp.Models;
 namespace BookStoreApp.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Books")]
+    [Route("api/[controller]")]
     [ApiController]
     public class BooksController : ControllerBase
     {
@@ -49,7 +49,7 @@ namespace BookStoreApp.Controllers
 
         // PUT: api/Books/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutBook([FromRoute] string id, [FromBody] Book book)
+        public async Task<IActionResult> PutBook([FromRoute] int id, [FromBody] Book book)
         {
             if (!ModelState.IsValid)
             {
@@ -118,7 +118,7 @@ namespace BookStoreApp.Controllers
             return Ok(book);
         }
 
-        private bool BookExists(string id)
+        private bool BookExists(int id)
         {
             return _context.Book.Any(e => e.Id == id);
         }
