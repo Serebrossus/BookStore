@@ -59,6 +59,10 @@ export class HomeComponent implements OnInit {
     this.bookService.splice(deleteIdx, 1);
   }
 
+  public logOut() {
+    localStorage.removeItem("jwt");
+  }
+
   ngOnInit() {
   }
 

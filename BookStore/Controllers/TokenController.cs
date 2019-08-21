@@ -1,11 +1,8 @@
 using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using BookStore.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -23,7 +20,7 @@ namespace BookStore.Controllers
 
     [AllowAnonymous]
     [HttpPost]
-    public dynamic Post([FromBody]LoginViewModel login) {
+    public dynamic Post([FromBody]Login login) {
       IActionResult response = Unauthorized();
       var user = Authenticate(login);
       if (user != null) {
@@ -43,10 +40,10 @@ namespace BookStore.Controllers
         );
       return new JwtSecurityTokenHandler().WriteToken(token);
     }
-    private User Authenticate(LoginViewModel login) {
+    private User Authenticate(Login login) {
       User user = null;
-      if (login.username == "john" && login.password == "secret") {
-        user = new User(login.username);
+      if (login.UserName == "john" && login.Password == "secret") {
+        user = new User(login.UserName);
       }
       return user;
     }
