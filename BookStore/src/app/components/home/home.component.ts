@@ -63,6 +63,7 @@ export class HomeComponent implements OnInit {
     localStorage.removeItem("jwt");
   }
 
+
   ngOnInit() {
   }
 

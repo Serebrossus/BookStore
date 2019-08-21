@@ -8,7 +8,11 @@ export class BookService {
   private headers: HttpHeaders;
   private accessPointUrl: string = 'http://localhost:5000/api/books';
   constructor(private http: HttpClient) {
-    this.headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
+    let token = localStorage.getItem("jwt");
+    this.headers = new HttpHeaders({
+      "Authorization": "Bearer " + token,
+      'Content-Type': 'application/json; charset=utf-8'
+    });
     console.debug({ headers: this.headers, url: this.accessPointUrl });
   }
 
