@@ -17,12 +17,12 @@ namespace BookStore.Controllers
   [ApiController]
   public class AuthController : ControllerBase
   {
-    private readonly LoginContext loginContext;
+    //private readonly LoginContext loginContext;
 
-    public AuthController(LoginContext context)
-    {
-      loginContext = context;
-    }
+    //public AuthController(LoginContext context)
+    //{
+    //  loginContext = context;
+    //}
 
     // GET api/values
     [HttpPost, Route("login")]
@@ -33,22 +33,20 @@ namespace BookStore.Controllers
         return BadRequest("Invalid client request");
       }
 
-      if (user.UserName == "johndoe" && user.Password == "def@123")
+      var loginsList = new List<Login>() {
+        new Login() {
+          UserName = "johndoe",
+          Password ="def@123",
+        },
+        new Login() {
+          UserName = "nikolasjfury",
+          Password ="def@234",
+        },
+      };
+
+      if (loginsList.FirstOrDefault(x=> x.UserName == user.UserName && x.Password == user.Password) != null)
       {
-        var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"));
-        var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
-        var claims = new List<Claim>
-        {
-            new Claim(ClaimTypes.Name, user.UserName),
-            new Claim(ClaimTypes.Role, "Manager")// "Operator"
-        };
-        var tokeOptions = new JwtSecurityToken(
-            issuer: "http://localhost:5000",
-            audience: "http://localhost:5000",
-            claims: claims,
-            expires: DateTime.Now.AddMinutes(5),
-            signingCredentials: signinCredentials
-        );
+        var tokeOptions = GetJwtSecurityToken(user.UserName, user.UserName == "nikolasjfury");
 
         var tokenString = new JwtSecurityTokenHandler().WriteToken(tokeOptions);
         return Ok(new { Token = tokenString });
@@ -58,6 +56,26 @@ namespace BookStore.Controllers
         return Unauthorized();
       }
     }
+
+    private JwtSecurityToken GetJwtSecurityToken(string login, bool isAdmin = false)
+    {
+      var rnd = new Random();
+      var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes($"superSecretKey@345"));// {rnd.Next(1000)}
+      var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
+      var claims = new List<Claim>
+        {
+            new Claim(ClaimTypes.Name, login),
+            new Claim(ClaimTypes.Role, isAdmin ? "Operator" : "Manager")
+        };
+
+      var tokeOptions = new JwtSecurityToken(
+          issuer: "http://localhost:5000",
+          audience: "http://localhost:5000",
+          claims: claims,
+          expires: DateTime.Now.AddMinutes(5),
+          signingCredentials: signinCredentials
+      );
+      return tokeOptions;
+    }
   }
-}
 }

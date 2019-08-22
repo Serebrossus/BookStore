@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BookStoreApp.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BookStoreApp.Controllers
 {
@@ -22,14 +23,14 @@ namespace BookStoreApp.Controllers
         }
 
         // GET: api/Books
-        [HttpGet]
+        [HttpGet, Authorize(Roles = "Manager")]
         public IEnumerable<Book> GetBook()
         {
             return _context.Book;
         }
 
         // GET: api/Books/5
-        [HttpGet("{id}")]
+        [HttpGet("{id}"), Authorize(Roles = "Manager")]
         public async Task<IActionResult> GetBook([FromRoute] string id)
         {
             if (!ModelState.IsValid)
@@ -48,7 +49,7 @@ namespace BookStoreApp.Controllers
         }
 
         // PUT: api/Books/5
-        [HttpPut("{id}")]
+        [HttpPut("{id}"), Authorize(Roles = "Operator")]
         public async Task<IActionResult> PutBook([FromRoute] int id, [FromBody] Book book)
         {
             if (!ModelState.IsValid)
@@ -83,7 +84,7 @@ namespace BookStoreApp.Controllers
         }
 
         // POST: api/Books
-        [HttpPost]
+        [HttpPost, Authorize(Roles = "Operator")]
         public async Task<IActionResult> PostBook([FromBody] Book book)
         {
             if (!ModelState.IsValid)
@@ -98,7 +99,7 @@ namespace BookStoreApp.Controllers
         }
 
         // DELETE: api/Books/5
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}"), Authorize(Roles = "Operator")]
         public async Task<IActionResult> DeleteBook([FromRoute] string id)
         {
             if (!ModelState.IsValid)
