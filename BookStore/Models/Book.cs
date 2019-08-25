@@ -12,5 +12,6 @@ namespace BookStoreApp.Models
         public string Author { get; set; }
         public int Price { get; set; }
         public string Type { get; set; }
+        public int TotalAmount { get; set; }
     }
 }
