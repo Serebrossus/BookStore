@@ -28,7 +28,7 @@ export class AddOrUpdateBookComponent implements OnInit {
 
   public addOrUpdateBook = function (event) {
     this.bookCreated.emit(this.bookInfo);
-    this.clearBookinfo();
+    this.clearBookInfo();
   }
 
   ngOnInit() {
