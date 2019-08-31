@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BookStoreApp.Models;
 using Microsoft.AspNetCore.Authorization;
+using BookStore.Data;
 
 namespace BookStoreApp.Controllers
 {
@@ -15,13 +16,11 @@ namespace BookStoreApp.Controllers
   public class BasketController : ControllerBase
   {
 
-    private readonly BasketContext _context;
-    private readonly BookContext _bookContext;
+    private readonly BookStoreContext _context;
 
-    public BasketController(BasketContext context, BookContext bookContext)
+    public BasketController(BookStoreContext context)
     {
       _context = context;
-      _bookContext = bookContext;
     }
     // GET: api/Basket
     [HttpGet, Authorize(Roles = "Manager")]
@@ -78,7 +77,7 @@ namespace BookStoreApp.Controllers
       {
         return BadRequest();
       }
-      var findBook = await _bookContext.Book.FindAsync(book.Id);
+      var findBook = await _context.Book.FindAsync(book.Id);
       if (findBook == null)
       {
         return BadRequest();
@@ -100,7 +99,7 @@ namespace BookStoreApp.Controllers
       await _context.SaveChangesAsync();
 
       findBook.TotalAmount--;
-      await _bookContext.SaveChangesAsync();
+      await _context.SaveChangesAsync();
 
       return Ok(basket);
     }

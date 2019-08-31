@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using BookStoreApp.Models;
 using Microsoft.AspNetCore.Authorization;
 using BookStore.Classes;
+using BookStore.Data;
 
 namespace BookStoreApp.Controllers
 {
@@ -16,9 +17,9 @@ namespace BookStoreApp.Controllers
   [ApiController]
   public class BooksController : ControllerBase
   {
-    private readonly BookContext _context;
+    private readonly BookStoreContext _context;
 
-    public BooksController(BookContext context)
+    public BooksController(BookStoreContext context)
     {
       _context = context;
     }

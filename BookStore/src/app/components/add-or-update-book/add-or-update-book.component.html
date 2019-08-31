@@ -1,23 +1,23 @@
-<h2 *ngIf="!bookInfo || bookInfo.id === undefined">Add record</h2>
-<h2 *ngIf="bookInfo && bookInfo.id !== undefined">Update record (ID: )</h2>
+<h2 *ngIf="!bookInfo || bookInfo.id === undefined">Добавить запись</h2>
+<h2 *ngIf="bookInfo && bookInfo.id !== undefined">Обновить запись (ID: )</h2>
 
 <div>
   <form>
     <div class="form-group">
       <label for="name-input">Название книги</label>
-      <input type="text" id="name-input" [(ngModel)]="bookInfo.name" class="form-control" />
+      <input type="text" id="name-input" [(ngModel)]="bookInfo.name" [ngModelOptions]="{standalone: true}" class="form-control" />
     </div>
     <div class="form-group">
       <label for="name-author">Автор</label>
-      <input type="text" id="name-author" [(ngModel)]="bookInfo.author" class="form-control" />
+      <input type="text" id="name-author" [(ngModel)]="bookInfo.author" [ngModelOptions]="{standalone: true}" class="form-control" />
     </div>
     <div class="form-group">
       <label for="name-price">Цена за шт.</label>
-      <input type="text" id="name-price" [(ngModel)]="bookInfo.price" class="form-control" />
+      <input type="text" id="name-price" [(ngModel)]="bookInfo.price" [ngModelOptions]="{standalone: true}" class="form-control" />
     </div>
     <div class="form-group">
       <label for="name-type">Тип книги</label>
-      <input type="text" id="name-type" [(ngModel)]="bookInfo.type" class="form-control" />
+      <input type="text" id="name-type" [(ngModel)]="bookInfo.type" [ngModelOptions]="{standalone: true}" class="form-control" />
     </div>
     <button type="button" class="btn btn-primary" (click)="addOrUpdateBook($event)">Сохранить</button>
   </form>
